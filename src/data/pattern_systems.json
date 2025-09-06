@@ -1,0 +1,35 @@
+{
+    "supported_systems": [ "Joseph-Armstrong" ],
+    "joseph-armstrong": {
+        "supported_patterns": [ "bodice" ],
+        "bodice": {
+            "measurements_needed": [
+                "center-length-front",
+                "center-length-back",
+                "full-length-front",
+                "full-length-back",
+                "shoulder-slope-front",
+                "shoulder-slope-back",
+
+                "new-strap",
+                "bust-depth",
+                "bust-span",
+                "side-length",
+                "back-neck",
+                "shoulder-length",
+                "across-shoulder-front",
+                "across-shoulder-back",
+
+                "across-chest",
+                "across-back",
+                "bust-arc",
+                "back-arc",
+                "waist-arc-front",
+                "waist-arc-back",
+
+                "dart-placement-front",
+                "dart-placement-back"
+            ]
+        }
+    }
+}

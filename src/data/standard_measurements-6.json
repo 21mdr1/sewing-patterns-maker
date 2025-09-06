@@ -1,0 +1,58 @@
+{
+    "units" : "in",
+    "measurements": {
+        "bust": 34,
+        "waist": 25.5,
+        "abdomen": 32,
+        "hip": 35.5,
+
+        "center-length-front": 14.125,
+        "center-length-back": 16.25,
+        "full-length-front": 16.125,
+        "full-length-back": 16.75,
+        "shoulder-slope-front": 17.0625,
+        "shoulder-slope-back": 16.3125,
+
+        "new-strap": 17,
+        "bust-depth": 9.125,
+        "bust-radius": 3,
+        "bust-span": 3.625,
+        "side-length": 8.125,
+        "back-neck": 2.625,
+        "shoulder-length": 5.125,
+        "across-shoulder-front": 7.5,
+        "across-shoulder-back": 7.75,
+
+        "across-chest": 6.5,
+        "across-back": 6.75,
+        "bust-arc": 9.5,
+        "back-arc": 8.125,
+        "waist-arc-front": 6.5,
+        "waist-arc-back": 6.125,
+
+        "dart-placement-front": 3,
+        "dart-placement-back": 3,
+
+        "abdomen-arc-front": 7.75,
+        "abdomen-arc-back": 8,
+        "hip-arc-front": 8.625,
+        "hip-arc-back": 9.125,
+
+        "crotch-depth": 9.5,
+        "hip-depth-front": 7.5,
+        "hip-depth-back": 7.375,
+        "side-hip-depth": 7.625,
+        "waist-to-knee": 22,
+        "waist-to-ankle": 37,
+        "waist-to-floor": 39,
+        
+        "crotch-length": 24.5,
+        "vertical-trunk": 59,
+        "upper-thigh": 20,
+        "mid-thigh": 18.5,
+        "knee": 13,
+        "calf": 12.25,
+        "ankle": 8.5,
+        "foot-entry": 12
+    }
+}

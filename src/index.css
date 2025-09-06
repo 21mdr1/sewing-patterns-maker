@@ -25,6 +25,26 @@ body {
 }
 
 .measurements {
-  width: 20%;
   background-color: #F6F6F6;
+  overflow-y: scroll;
+}
+
+.measurements__form {
+
+}
+
+.measurements__section-header {
+
+}
+
+.measurements__extra-label {
+
+}
+
+.measurements__label {
+  
+}
+
+.measurements__input {
+
 }
