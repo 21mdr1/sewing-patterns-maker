@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron';
+import { app, session, shell, BrowserWindow } from 'electron';
 import path from 'node:path';
+// import { URL } from 'node:url';
 import started from 'electron-squirrel-startup';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -27,6 +28,15 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': ['default-src \'self\'; script-src \'self\'; style-src \'self\''],
+      }
+    });
+  });
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 };
@@ -53,5 +63,46 @@ app.on('activate', () => {
   }
 });
 
+// app.on('web-contents-created', (event, contents) => {
+//   contents.setWindowOpenHandler(({ url }) => {
+//     // In this example, we'll ask the operating system
+//     // to open this event's url in the default browser.
+//     //
+//     // See the following item for considerations regarding what
+//     // URLs should be allowed through to shell.openExternal.
+//     if (isSafeForExternalOpen(url)) {
+//       setImmediate(() => {
+//         shell.openExternal(url)
+//       })
+//     }
+
+//     return { action: 'deny' }
+//   })
+// })
+
+// app.on('web-contents-created', (event, contents) => {
+//   contents.on('will-navigate', (event, navigationUrl) => {
+//     const parsedUrl = new URL(navigationUrl)
+
+//     if (parsedUrl.origin !== 'https://example.com') {
+//       event.preventDefault()
+//     }
+//   })
+// })
+
+
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+
+// ipcMain.handle('get-secrets', (e) => {
+//   if (!validateSender(e.senderFrame)) return null
+//   return getSecrets()
+// })
+
+// function validateSender (frame) {
+//   // Value the host of the URL using an actual URL parser and an allowlist
+//   if ((new URL(frame.url)).host === 'electronjs.org') return true
+//   return false
+// }
