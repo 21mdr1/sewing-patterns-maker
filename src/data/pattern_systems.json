@@ -3,7 +3,9 @@
         { "id": "joseph-armstrong", "display-name": "Joseph-Armstrong" }
     ],
     "joseph-armstrong": {
-        "supported_patterns": [ "bodice" ],
+        "supported_patterns": [ 
+            { "id": "bodice", "display-name": "Bodice" }
+        ],
         "bodice": {
             "measurements_needed": [
                 "center-length-front",
