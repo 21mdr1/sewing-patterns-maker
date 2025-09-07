@@ -1,0 +1,27 @@
+[
+    {"id": "center-length-front", "display-name": "Center Length Front"},
+    {"id": "center-length-back", "display-name": "Center Length Back"},
+    {"id": "full-length-front", "display-name": "Full Length Front"},
+    {"id": "full-length-back", "display-name": "Full Length Back"},
+    {"id": "shoulder-slope-front", "display-name": "Shoulder Slope Front"},
+    {"id": "shoulder-slope-back", "display-name": "Shoulder Slope Back"},
+
+    {"id": "new-strap", "display-name": "New Strap"},
+    {"id": "bust-depth", "display-name": "Bust Depth"},
+    {"id": "bust-span", "display-name": "Bust Span"},
+    {"id": "side-length", "display-name": "Side Length"},
+    {"id": "back-neck", "display-name": "Back Neck"},
+    {"id": "shoulder-length", "display-name": "Shoulder Length"},
+    {"id": "across-shoulder-front", "display-name": "Across Shoulder Front"},
+    {"id": "across-shoulder-back", "display-name": "Across Shoulder Back"},
+
+    {"id": "across-chest", "display-name": "Across Chest"},
+    {"id": "across-back", "display-name": "Across Back"},
+    {"id": "bust-arc", "display-name": "Bust Arc"},
+    {"id": "back-arc", "display-name": "Back Arc"},
+    {"id": "waist-arc-front", "display-name": "Waist Arc Front"},
+    {"id": "waist-arc-back", "display-name": "Waist Arc Back"},
+
+    {"id": "dart-placement-front", "display-name": "Dart Placement Front"},
+    {"id": "dart-placement-back", "display-name": "Dart Placemnet Back"}
+]

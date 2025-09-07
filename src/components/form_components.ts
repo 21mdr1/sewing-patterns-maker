@@ -16,12 +16,22 @@ function Input(inputInfo: IInput) {
 function Select(selectInfo: ISelect) {
     const label = document.createElement("label");
     label.htmlFor = selectInfo.name;
+    label.textContent = selectInfo.label;
     selectInfo.labelClassList.forEach(classEl => label.classList.add(classEl));
 
     const select = document.createElement("select");
     select.name = selectInfo.name;
     select.id = selectInfo.name;
+    select.onchange = selectInfo.onChange;
     selectInfo.classList.forEach(classEl => select.classList.add(classEl));
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.text = "Coose Option"
+    placeholder.disabled = true;
+    placeholder.hidden = true;
+    placeholder.selected = true;
+    select.appendChild(placeholder);
 
     selectInfo.options.forEach(optionEl => {
         const option = document.createElement("option");
@@ -31,8 +41,6 @@ function Select(selectInfo: ISelect) {
 
         select.appendChild(option);
     });
-
-    selectInfo.onChange && select.addEventListener("change", selectInfo.onChange);
 
     return [ label, select ];
 }
