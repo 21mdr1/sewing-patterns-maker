@@ -1,5 +1,7 @@
 {
-    "supported_systems": [ "Joseph-Armstrong" ],
+    "supported_systems": [ 
+        { "id": "joseph-armstrong", "display-name": "Joseph-Armstrong" }
+    ],
     "joseph-armstrong": {
         "supported_patterns": [ "bodice" ],
         "bodice": {
