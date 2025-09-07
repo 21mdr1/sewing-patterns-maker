@@ -7,27 +7,25 @@ interface IInput {
     labelClassList?: string[],
 }
 
-interface IText {
-    classList: string[],
-    text: string,
-}
-
-interface IDiv {
-    classList: string[],
-}
-
 interface IOption {
-    text: string,
-    value: string,
+    id: string,
+    "display-name": string,
 }
 
 interface ISelect {
-    classList: string[],
-    optionClassList: string[],
+    classList?: string[],
+    optionClassList?: string[],
     label: string,
-    labelClassList: string[],
+    labelClassList?: string[],
     name: string,
     onChange?: (e: Event) => void;
 
     options: IOption[],
+}
+
+interface IButton {
+    classList?: string[],
+    type?: "submit" | "reset";
+    text: string;
+    onChange?: (e: Event) => void;
 }
