@@ -28,14 +28,14 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
-  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    callback({
-      responseHeaders: {
-        ...details.responseHeaders,
-        'Content-Security-Policy': ['default-src \'self\'; script-src \'self\'; style-src \'self\''],
-      }
-    });
-  });
+  // session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+  //   callback({
+  //     responseHeaders: {
+  //       ...details.responseHeaders,
+  //       'Content-Security-Policy': ['default-src \'self\'; script-src \'self\'; style-src \'self\''],
+  //     }
+  //   });
+  // });
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
