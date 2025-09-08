@@ -15,7 +15,8 @@ function handlePatternChange(event: Event) {
         systems[selectedSystem as systemType]
             [(event.target as HTMLSelectElement).value as patternType]
             .measurements_needed, 
-        measurementsContainer
+        measurementsContainer,
+        "in"
     );
                 
     selectedPattern = (event.target as HTMLSelectElement).value;
