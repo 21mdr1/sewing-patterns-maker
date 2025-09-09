@@ -8,13 +8,13 @@ import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
 const config: ForgeConfig = {
-  // buildIdentifier: process.env.IS_BETA ? 'beta' : 'prod',
+  buildIdentifier: process.env.IS_PROD ? 'prod' : 'dev',
   packagerConfig: {
     asar: true,
-    all: true,
-    osxSign: {},
+    // all: true,
+    // osxSign: {},
     // osxNotarize: {},
-    windowsSign: {},
+    // windowsSign: {},
     appCategoryType: 'public.app-category.graphics-design', //public.app-category.utilities
     // appCopyright: '',
     // icon: '' // mac: .icns, windows: .ico, linux: needs to be set in BrowserWindow
@@ -78,8 +78,8 @@ const config: ForgeConfig = {
       // }
     //}],
   // hooks: { /* ... */ },
-  // buildIdentifier: 'my-build',
-  // outDir: 'desired/outpath'
+  // makers: {},
+  outDir: 'dist/',
 };
 
 export default config;

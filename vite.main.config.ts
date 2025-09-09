@@ -5,17 +5,9 @@ import { defineConfig } from 'vite';
 
 
 export default defineConfig({
-  server: {
-    headers: {
-        'Content-Security-Policy': `default-src 'self'; style-src 'unsafe-inline'; connect-src 'self' ws://localhost:*;`,
-    },
-  },
-//   build: {
-//     rollupOptions: {
-//       external: [
-//         'serialport',
-//         'sqlite3'
-//       ]
-//     }
-//   }
+  // server: {
+  //   headers: {
+  //       'Content-Security-Policy': `default-src 'self'; style-src 'unsafe-inline'; connect-src 'self' ws://localhost:*;`,
+  //   },
+  // },
 });

@@ -2,7 +2,10 @@ import './index.css';
 import { StyledSelect } from './components/form_components';
 import { MeasurementForm } from './components/render_measurements';
 import systems from "./data/pattern_systems.json";
-import type { systemType, patternType } from "./types/data";
+import type { systemLike, patternLike, ISystemsData } from "./types/data";
+
+// const systems: ISystemsData = require("./data/pattern_systems.json")
+// const systems = require("./data/pattern_systems.json");
 
 const systemContainer = document.querySelector(".measurements__system")
 const patternContainer = document.querySelector(".measurements__pattern")
@@ -12,8 +15,8 @@ let selectedPattern = "";
 
 function handlePatternChange(event: Event) {
     MeasurementForm(
-        systems[selectedSystem as systemType]
-            [(event.target as HTMLSelectElement).value as patternType]
+        systems[selectedSystem as systemLike]
+            [(event.target as HTMLSelectElement).value as patternLike]
             .measurements_needed, 
         measurementsContainer,
         "in"
@@ -27,7 +30,7 @@ function handleSystemChange(event: Event) {
         name: "pattern",
         label: "Pattern",
 
-        options: systems[(event.target as HTMLSelectElement).value as systemType].supported_patterns,
+        options: systems[(event.target as HTMLSelectElement).value as systemLike].supported_patterns,
 
         onChange: handlePatternChange
     }));
