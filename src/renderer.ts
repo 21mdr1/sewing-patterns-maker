@@ -2,14 +2,12 @@ import './index.css';
 import { StyledSelect } from './components/form_components';
 import { MeasurementForm } from './components/render_measurements';
 import systems from "./data/pattern_systems.json";
-import type { systemLike, patternLike, ISystemsData } from "./types/data";
-
-// const systems: ISystemsData = require("./data/pattern_systems.json")
-// const systems = require("./data/pattern_systems.json");
+import type { systemLike, patternLike } from "./types/data";
 
 const systemContainer = document.querySelector(".measurements__system")
 const patternContainer = document.querySelector(".measurements__pattern")
 const measurementsContainer = document.querySelector(".measurements__container");
+
 let selectedSystem = "";
 let selectedPattern = "";
 

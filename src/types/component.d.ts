@@ -25,7 +25,7 @@ interface ISelect {
 
 interface IButton {
     classList?: string[],
-    type?: "submit" | "reset";
+    type?: "submit" | "reset" | "button";
     text: string;
     onChange?: (e: Event) => void;
 }

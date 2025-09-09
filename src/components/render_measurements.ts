@@ -23,6 +23,16 @@ function MeasurementForm(info: string[], parentNode: Element, unit: string) {
     }
 
     parentNode.appendChild(StyledButton({text: "Generate Pattern"}));
+
+
+    // save and load buttons
+    const buttonsDiv = document.createElement("div");
+    buttonsDiv.classList.add("save-buttons_div");
+
+    buttonsDiv.appendChild(StyledButton({text: "Save Measurements", type: "button"}));
+    buttonsDiv.appendChild(StyledButton({text: "Load Measurements", type: "button"}));
+
+    parentNode.appendChild(buttonsDiv);
 }
 
 
