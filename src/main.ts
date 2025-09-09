@@ -1,5 +1,5 @@
 import { app, session, BrowserWindow, ipcMain } from 'electron';
-import { writeData, readData } from './helpers/fsHelpers';
+import { writeData, readData, writeUsingDialog, readUsingDialog } from './helpers/fsHelpers';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 
@@ -49,9 +49,11 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
 
-  ipcMain.on('writeaData', (_, dir, filePath, data) => writeData(dir, filePath, data));
+  ipcMain.on('writeaData', (_, filePath, data) => writeData(filePath, data));
+  ipcMain.on('writeUsingDialog', (_, data) => writeUsingDialog(data));
   ipcMain.handle('readData', (_, filePath) => readData(filePath));
-  
+  ipcMain.handle('readUsingDialog', () => readUsingDialog());
+
   createWindow();
 });
 

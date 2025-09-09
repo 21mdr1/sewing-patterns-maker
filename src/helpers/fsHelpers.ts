@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { app } from 'electron';
+import { app, dialog } from 'electron';
 
 export const rootDir = app.getAppPath();
 export const userDataDir = path.join(rootDir, "measurements");
@@ -19,6 +19,8 @@ export function createDirectory(dir: string) {
 }
 
 export function createFile(filePath: string) {
+    createDirectory(path.dirname(filePath));
+
     if(!fs.existsSync(filePath)) {
         try {
             fs.writeFileSync(filePath, "", 'utf-8');
@@ -29,14 +31,12 @@ export function createFile(filePath: string) {
     }
 }
 
-export function writeData(dir: string, filePath: string, data: any) {
-    filePath = filePath + ".json";
-    createDirectory(dir);
-    createFile(path.join(dir, filePath));
+export function writeData(filePath: string, data: any) {
+    createDirectory(path.dirname(filePath));
 
     try {
         fs.writeFileSync(
-            path.join(dir, filePath),
+            filePath,
             JSON.stringify(data, null, 2),
             'utf-8'
         );
@@ -44,6 +44,26 @@ export function writeData(dir: string, filePath: string, data: any) {
     } catch(e) {
         console.log(`Error writing to file ${filePath}: ${e}`);
     }
+}
+
+export async function writeUsingDialog(data: any): Promise<void> {
+    createDirectory(userDataDir);
+
+    const { canceled, filePath } = await dialog.showSaveDialog({
+        title: "Select the File Path to Save",
+        defaultPath: userDataDir,
+        buttonLabel: "Save",
+        filters: [{
+            name: "Json Files",
+            extensions: ['measurements.json'],
+        }],
+        properties: [],
+    });
+
+    if (!canceled) {
+        writeData(filePath, data);
+    }
+
 }
 
 export function readData(filePath: string): any {
@@ -57,5 +77,22 @@ export function readData(filePath: string): any {
     } else {
         console.log(`Error reading file ${filePath}: File does not exist`);
         return null;
+    }
+}
+
+export async function readUsingDialog(): Promise<any> {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+        title: "Select the File Open",
+        defaultPath: userDataDir,
+        buttonLabel: "Open",
+        filters: [{
+            name: "Json Files",
+            extensions: ['measurements.json'],
+        }],
+        properties: [ 'openFile' ],
+    });
+
+    if (!canceled) {
+        return readData(filePaths[0]);
     }
 }

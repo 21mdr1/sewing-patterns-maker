@@ -1,8 +1,10 @@
 export interface IEnv {
     isProd: boolean,
     rootDir: () => string,
-    writeData: (dir: string, filePath: string, data: any) => void,
+    writeData: (filePath: string, data: any) => void,
+    writeUsingDialog: (data: any) => void,
     readData: (filePath: string) => Promise<any>,
+    readUsingDialog: () => Promise<any>,
 }
 
 declare global {
