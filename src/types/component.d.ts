@@ -2,6 +2,7 @@ interface IInput {
     type: "text" | "number",
     classList?: string[],
     placeholder?: string,
+    value?: string | number,
     name: string,
     label: string,
     labelClassList?: string[],
@@ -27,5 +28,5 @@ interface IButton {
     classList?: string[],
     type?: "submit" | "reset" | "button";
     text: string;
-    onChange?: (e: Event) => void;
+    onClick?: (e: Event) => void;
 }

@@ -5,6 +5,7 @@ function Input(inputInfo: IInput) {
     input.name = inputInfo.name;
     input.id = inputInfo.name;
     inputInfo.placeholder && (input.placeholder = inputInfo.placeholder);
+    inputInfo.value && (input.value = inputInfo.value.toString());
 
     input.required = true;
 
@@ -47,13 +48,13 @@ function Select(selectInfo: ISelect) {
     return [ label, select ];
 }
 
-function Button({ classList, text, type = "submit", onChange }: IButton) {
+function Button({ classList, text, type = "submit", onClick }: IButton) {
     const button = document.createElement("button");
     classList.forEach(el => button.classList.add(el));
     button.textContent = text;
 
     button.type = type;
-    button.onchange = onChange;
+    button.onclick = onClick;
 
     return button;
 }

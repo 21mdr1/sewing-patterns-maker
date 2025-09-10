@@ -81,6 +81,7 @@ export function readData(filePath: string): any {
 }
 
 export async function readUsingDialog(): Promise<any> {
+    createDirectory(userDataDir);
     const { canceled, filePaths } = await dialog.showOpenDialog({
         title: "Select the File Open",
         defaultPath: userDataDir,

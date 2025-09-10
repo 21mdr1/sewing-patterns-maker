@@ -38,6 +38,7 @@ body {
 .measurements {
   background-color: #F6F6F6;
   overflow-y: scroll;
+  width: 345px;
 }
 
 .measurements__header {
@@ -66,8 +67,12 @@ body {
   width: 330px;
 }
 
+.buttons__container {
+  margin-top: -5px;
+  padding: 0 15px 10px;
+}
+
 .save-buttons_div {
-  margin-top: 5px;
   display: flex;
   gap: 5px;
 }
@@ -75,7 +80,6 @@ body {
 .styled-select__container {
   display: flex;
   justify-content: space-between;
-  width: 300px;
   margin-bottom: 5px;
   animation: enter-measurements 0.1s ease-in-out;
 }

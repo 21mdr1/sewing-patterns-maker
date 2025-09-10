@@ -48,7 +48,7 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-
+  ipcMain.handle("isProd", () => app.isPackaged)
   ipcMain.on('writeaData', (_, filePath, data) => writeData(filePath, data));
   ipcMain.on('writeUsingDialog', (_, data) => writeUsingDialog(data));
   ipcMain.handle('readData', (_, filePath) => readData(filePath));

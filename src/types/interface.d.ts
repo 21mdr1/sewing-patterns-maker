@@ -1,6 +1,9 @@
 export interface IEnv {
-    isProd: boolean,
-    rootDir: () => string,
+    desktop: boolean,
+    isProd: () => Promise<boolean>,
+}
+
+export interface IDataExchange {
     writeData: (filePath: string, data: any) => void,
     writeUsingDialog: (data: any) => void,
     readData: (filePath: string) => Promise<any>,
@@ -10,5 +13,6 @@ export interface IEnv {
 declare global {
     interface Window {
         env: IEnv,
+        exchangeData: IDataExchange,
     }
 }
