@@ -11,7 +11,7 @@ contextBridge.exposeInMainWorld('env', {
 
 contextBridge.exposeInMainWorld('exchangeData', {
     writeData: (filePath: string, data: any) => ipcRenderer.send("writeData", filePath, data),
-    writeUsingDialog: (data: any) => ipcRenderer.send("writeData", data),
+    writeUsingDialog: (data: any) => ipcRenderer.send("writeUsingDialog", data),
     readData: (filePath: string) => ipcRenderer.invoke("readData", filePath),
     readUsingDialog: () => ipcRenderer.invoke("readUsingDialog"),
 })

@@ -4,6 +4,7 @@ function Input(inputInfo: IInput) {
     input.type = inputInfo.type;
     input.name = inputInfo.name;
     input.id = inputInfo.name;
+    input.step = "0.0001";
     inputInfo.placeholder && (input.placeholder = inputInfo.placeholder);
     inputInfo.value && (input.value = inputInfo.value.toString());
 
@@ -48,13 +49,15 @@ function Select(selectInfo: ISelect) {
     return [ label, select ];
 }
 
-function Button({ classList, text, type = "submit", onClick }: IButton) {
+function Button({ classList, text, type = "submit", onClick, value }: IButton) {
     const button = document.createElement("button");
     classList.forEach(el => button.classList.add(el));
     button.textContent = text;
 
     button.type = type;
     button.onclick = onClick;
+
+    value && (button.value = value);
 
     return button;
 }

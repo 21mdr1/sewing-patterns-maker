@@ -22,15 +22,23 @@ function MeasurementForm(info: string[], parentNode: Element, unit: string, data
 
     }
 
-    parentNode.appendChild(StyledButton({text: "Generate Pattern"}));
+    parentNode.appendChild(StyledButton({text: "Generate Pattern", value: "generate"}));
 }
 
 function SaveAndLoadButtons(parentNode: Element, onClickSave?: (e: Event) => void, onClickLoad?: (e: Event) => void) {
     const buttonsDiv = document.createElement("div");
     buttonsDiv.classList.add("save-buttons_div");
 
-    buttonsDiv.appendChild(StyledButton({text: "Save Measurements", type: "button", onClick: onClickSave}));
-    buttonsDiv.appendChild(StyledButton({text: "Load Measurements", type: "button", onClick: onClickLoad}));
+    buttonsDiv.appendChild(StyledButton({
+        text: "Save Measurements",  
+        onClick: onClickSave, 
+        value: "save",
+    }));
+    buttonsDiv.appendChild(StyledButton({
+        text: "Load Measurements", 
+        type: "button", 
+        onClick: onClickLoad,
+    }));
 
     parentNode.appendChild(buttonsDiv);
 }
