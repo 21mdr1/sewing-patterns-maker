@@ -77,11 +77,10 @@ interface ISystemsData {
     }[],
 }
 
+type IMeas = Record<string, number>
 interface IMeasurements {
     units: "in" | "cm" | "mm",
-    measurements: {
-        [key: mearurementLike]: number
-    }
+    measurements: IMeas;
 }
 
-export type { IMeasurements, systemLike, patternLike, measurementLike, ISystemsData };
+export type { IMeasurements, IMeas, systemLike, patternLike, measurementLike, ISystemsData };

@@ -1,6 +1,7 @@
 // import { exporter, paths } from "makerjs";
 import makerjs from "makerjs";
 import type { IModel, IPoint, IPathLine } from "makerjs";
+import type { measurementLike, IMeas, IMeasurements } from "src/types/data";
 
 const { 
     paths: { Line, Circle }, 
@@ -26,7 +27,7 @@ const testMeasurements = {
     "new-strap": 17,
     "side-length": 8.125,
     "waist-arc-front": 6.5,
-    "bra-cup": "B"
+    // "bra-cup": "B"
 }
 
 
@@ -91,12 +92,11 @@ function makeDart(a: IPoint, b: IPoint, c: IPoint, distFromC: number = 0) {
 
 }
 
-const functions = {
-    pointFromPoint, lineFromPoints, squareLine, pointIntersecting, pointOnLine, pointSquareOfTwoPoints, midPoint, squarePoint, makeDart, "makeBezierCurve": "makeBezierCurve"
+function evaluate_measurements(name: measurementLike, ease: number, pos: boolean, meas: IMeas) {
+    return (pos ? 1 : -1) * (meas[name] as number + ease);
 }
-
 interface IInstruction {
-    action: (keyof typeof functions);
+    action:  "pointFromPoint" | "lineFromPoints" | "squareLine" | "pointIntersecting" | "pointOnLine" | "pointSquareOfTwoPoints" | "midPoint" | "squarePoint" | "makeDart" | "makeBezierCurve";
     parameters: any[];
     name: string;
     isFinal: boolean;
@@ -105,14 +105,14 @@ interface IInstruction {
 const instructions: IInstruction[] = [
     {
         action: "pointFromPoint",
-        parameters: ["A", 0, -(testMeasurements["full-length-front"] + 1/8)],
+        parameters: ["A", 0, [ "full-length-front", 1/8, false ] ],
         name: "B",
         isFinal: false,
     },
     {
         action: "pointFromPoint",
         name: "C",
-        parameters: [ "A", -(testMeasurements["across-shoulder-front"] - 1/8), 0],
+        parameters: [ "A", [ "across-shoulder-front", -1/8, false ], 0],
         isFinal: false,
     },
     {
@@ -130,7 +130,7 @@ const instructions: IInstruction[] = [
     {
         action: "pointFromPoint",
         name: "D",
-        parameters: ["B", 0, testMeasurements["center-length-front"]],
+        parameters: ["B", 0, [ "center-length-front", 0, true ]],
         isFinal: false,
     },
     {
@@ -142,7 +142,7 @@ const instructions: IInstruction[] = [
     {
         action: "pointFromPoint",
         name: "E",
-        parameters: ["B", -(testMeasurements["bust-arc"] + 1/4) , 0],
+        parameters: ["B", ["bust-arc", 1/4, false] , 0],
         isFinal: false,
     },
     {
@@ -154,19 +154,19 @@ const instructions: IInstruction[] = [
     {
         action: "pointIntersecting",
         name: "G",
-        parameters: ["B", "CLine", testMeasurements["shoulder-slope-front"] + 1/8],
+        parameters: ["B", "CLine", ["shoulder-slope-front", 1/8, true]],
         isFinal: false,
     },
     {
         action: "pointOnLine",
         name: "H",
-        parameters: ["G", "B", testMeasurements["bust-depth"]],
+        parameters: ["G", "B", ["bust-depth", 0, true]],
         isFinal: false,
     },
     {
         action: "pointIntersecting",
         name: "I",
-        parameters: ["G", "AtoC", testMeasurements["shoulder-length"]],
+        parameters: ["G", "AtoC", ["shoulder-length", 0, true]],
         isFinal: false,
     },
     {
@@ -184,7 +184,7 @@ const instructions: IInstruction[] = [
     {
         action: "pointFromPoint",
         name: "K",
-        parameters: ["J", -(testMeasurements["bust-span"] + 1/4), 0],
+        parameters: ["J", ["bust-span", 1/4, false], 0],
         isFinal: false,
     },
     {
@@ -196,13 +196,13 @@ const instructions: IInstruction[] = [
     {
         action: "pointFromPoint",
         name: "M",
-        parameters: ["L", -(testMeasurements["across-chest"] + 1/4), 0],
+        parameters: ["L", ["across-chest", 1/4, false], 0],
         isFinal: false,
     },
     {
         action: "pointFromPoint",
         name: "F",
-        parameters: ["B", - testMeasurements["dart-placement-front"], 0],
+        parameters: ["B", [ "dart-placement-front", 0, false ], 0],
         isFinal: false,
     },
     {
@@ -214,13 +214,13 @@ const instructions: IInstruction[] = [
     {
         action: "pointIntersecting",
         name: "N",
-        parameters: ["I", "ELine", testMeasurements["new-strap"] + 1/8],
+        parameters: ["I", "ELine", [ "new-strap", 1/8, true ] ],
         isFinal: false,
     },
     {
         action: "pointFromPoint",
         name: "O",
-        parameters: ["N", 0, testMeasurements["side-length"]],
+        parameters: ["N", 0, ["side-length", 0, true]],
         isFinal: false,
     },
     {
@@ -232,7 +232,7 @@ const instructions: IInstruction[] = [
     {
         action: "pointOnLine",
         name: "P1",
-        parameters: ["O", "P", testMeasurements["side-length"]],
+        parameters: ["O", "P", ["side-length", 0, true]],
         isFinal: false,
     },
     {
@@ -244,7 +244,7 @@ const instructions: IInstruction[] = [
     {
         action: "pointOnLine",
         name: "Q",
-        parameters: ["P1", "F", testMeasurements["waist-arc-front"] + 1/4],
+        parameters: ["P1", "F", ["waist-arc-front", 1/4, true]],
         isFinal: false,
     },
     {
@@ -303,7 +303,7 @@ const instructions: IInstruction[] = [
     }
 ];
 
-function buildFromInstructions(instructions: IInstruction[]): IModel {
+function buildFromInstructions(instructions: IInstruction[], measObject: IMeasurements): IModel {
     const record = { 
         paths: {} as {[key: string]: IPathLine}, 
         points: {
@@ -318,7 +318,15 @@ function buildFromInstructions(instructions: IInstruction[]): IModel {
 
     for(const { action, name, parameters, isFinal } of instructions) {
         if(action === "pointFromPoint") {
-            const [ a, xDiff, yDiff ] = parameters;
+            let [ a, xDiff, yDiff ] = parameters;
+
+            if (Array.isArray(xDiff)) {
+                xDiff = evaluate_measurements(xDiff[0], xDiff[1], xDiff[2], measObject.measurements);
+            }
+            if (Array.isArray(yDiff)) {
+                yDiff = evaluate_measurements(yDiff[0], yDiff[1], yDiff[2], measObject.measurements);
+            }
+
             const point = pointFromPoint(record.points[a], xDiff, yDiff);
             record.points[name] = point;
         } else if (action === "lineFromPoints") {
@@ -339,7 +347,12 @@ function buildFromInstructions(instructions: IInstruction[]): IModel {
 
             record.points[name] = line;
         } else if (action === "pointIntersecting") {
-            const [ origin, line, dist ] = parameters;
+            let [ origin, line, dist ] = parameters;
+
+            if(Array.isArray(dist)) {
+                dist = evaluate_measurements(dist[0], dist[1], dist[2], measObject.measurements);
+            }
+
             const point = pointIntersecting(record.points[origin], record.paths[line], dist);
 
             if(!point) {
@@ -348,7 +361,12 @@ function buildFromInstructions(instructions: IInstruction[]): IModel {
 
             record.points[name] = point;
         } else if (action === "pointOnLine") {
-            const [ start, end, dist ] = parameters;
+            let [ start, end, dist ] = parameters;
+
+            if(Array.isArray(dist)) {
+                dist = evaluate_measurements(dist[0], dist[1], dist[2], measObject.measurements);
+            }
+
             const point = pointOnLine(record.points[start], record.points[end], dist);
             
             record.points[name] = point;
@@ -362,7 +380,6 @@ function buildFromInstructions(instructions: IInstruction[]): IModel {
             const point = midPoint(record.points[a], record.points[b]);
 
             record.points[name] = point;
-            console.log(record.points);
         } else if (action === "makeDart") {
             const [ a, b,  c, distFromC ] = parameters;
             const [ newB, leg1, leg2 ] = makeDart(record.points[a], record.points[b], record.points[c], distFromC);
@@ -378,7 +395,6 @@ function buildFromInstructions(instructions: IInstruction[]): IModel {
             const curve = new BezierCurve(record.points[a], record.points[b], record.points[c], record.points[d]);
 
             record.models[name] = curve;
-            console.log(record.models);
             
             if(isFinal) { addModel(model, curve, name) }
         }
@@ -387,4 +403,4 @@ function buildFromInstructions(instructions: IInstruction[]): IModel {
     return model;
 }
 
-export { buildFromInstructions, instructions };
+export { buildFromInstructions, instructions, testMeasurements };
