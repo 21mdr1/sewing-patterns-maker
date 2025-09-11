@@ -2,8 +2,8 @@ import './index.css';
 import { StyledSelect } from './components/form_components';
 import { MeasurementForm, SaveAndLoadButtons } from './components/render_measurements';
 import systems from "./data/pattern_systems.json";
-import type { systemLike, patternLike } from "./types/data";
-import { buildFromInstructions, instructions, testMeasurements } from './helpers/geometryHelper';
+import type { systemLike, patternLike, IInstruction } from "./types/data";
+import { buildFromInstructions } from './helpers/geometryHelper';
 import { exporter } from 'makerjs';
 
 const systemContainer = document.querySelector(".measurements__system")
@@ -11,12 +11,7 @@ const patternContainer = document.querySelector(".measurements__pattern")
 const measurementsContainer = document.querySelector(".measurements__container");
 const form = document.querySelector(".measurements__form");
 const buttonsContainer = document.querySelector(".buttons__container");
-
 const output = document.querySelector(".output");
-output.innerHTML = exporter.toSVG(buildFromInstructions(instructions, { units: "in", measurements: testMeasurements }));
-
-const svg = document.querySelector("svg");
-svg?.classList.add("svg__container");
 
 
 let selectedSystem = "";
@@ -41,32 +36,36 @@ async function handleLoadData() {
     }
 }
 
-function handleSaveData(form: HTMLFormElement) {
+function formatData(form: HTMLFormElement) {
     const data = {
         units: units,
         measurements: {
 
-        } as {[key: string]: string}
+        } as {[key: string]: number}
     }
 
     for(const child of form) {
         if(child.tagName === "INPUT") {
-            data.measurements[(child as HTMLInputElement).name] = (child as HTMLInputElement).value
+            data.measurements[(child as HTMLInputElement).name] = Number((child as HTMLInputElement).value);
         }
     }
 
-    window.exchangeData.writeUsingDialog(data);
+    return data;
 }
 
 function handleFormSubmit(event: SubmitEvent) {
     event.preventDefault();
+    const data = formatData((event.target as HTMLFormElement));
 
     if((event.submitter as HTMLButtonElement).value === "save") {
-        handleSaveData((event.target as HTMLFormElement));
+        window.exchangeData.writeUsingDialog(data);
     } else if ((event.submitter as HTMLButtonElement).value === "generate") {
-        const system = ((event.target as HTMLFormElement)[0] as HTMLSelectElement).value
-        const pattern = ((event.target as HTMLFormElement)[1] as HTMLSelectElement).value
-        console.log(system, pattern);
+        const instructions = systems[selectedSystem as systemLike][selectedPattern as patternLike].instructions as IInstruction[];
+
+        output.innerHTML = exporter.toSVG(buildFromInstructions(instructions, data));
+
+        const svg = document.querySelector("svg");
+        svg?.classList.add("svg__container");
     }
 }
 

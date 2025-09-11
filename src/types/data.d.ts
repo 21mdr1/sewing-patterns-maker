@@ -57,10 +57,6 @@ type measurementLike = "bust" |
 type systemLike = "joseph-armstrong";
 type patternLike = "bodice"
 
-// interface ISupport {
-
-// }
-
 interface ISystemsData {
     [key: systemLike]: {
         "supported_patterns": {
@@ -79,8 +75,15 @@ interface ISystemsData {
 
 type IMeas = Record<string, number>
 interface IMeasurements {
-    units: "in" | "cm" | "mm",
+    units: string,
     measurements: IMeas;
 }
 
-export type { IMeasurements, IMeas, systemLike, patternLike, measurementLike, ISystemsData };
+interface IInstruction {
+    action:  "pointFromPoint" | "lineFromPoints" | "squareLine" | "pointIntersecting" | "pointOnLine" | "pointSquareOfTwoPoints" | "midPoint" | "squarePoint" | "makeDart" | "makeBezierCurve";
+    parameters: any[];
+    name: string;
+    isFinal: boolean;
+}
+
+export type { IMeasurements, IMeas, systemLike, patternLike, measurementLike, ISystemsData, IInstruction };
