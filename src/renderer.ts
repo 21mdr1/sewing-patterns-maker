@@ -3,12 +3,21 @@ import { StyledSelect } from './components/form_components';
 import { MeasurementForm, SaveAndLoadButtons } from './components/render_measurements';
 import systems from "./data/pattern_systems.json";
 import type { systemLike, patternLike } from "./types/data";
+import { buildFromInstructions, instructions } from './helpers/geometryHelper';
+import { exporter } from 'makerjs';
 
 const systemContainer = document.querySelector(".measurements__system")
 const patternContainer = document.querySelector(".measurements__pattern")
 const measurementsContainer = document.querySelector(".measurements__container");
 const form = document.querySelector(".measurements__form");
 const buttonsContainer = document.querySelector(".buttons__container");
+
+const output = document.querySelector(".output");
+output.innerHTML = exporter.toSVG(buildFromInstructions(instructions));
+
+const svg = document.querySelector("svg");
+svg?.classList.add("svg__container");
+
 
 let selectedSystem = "";
 let selectedPattern = "";
