@@ -3,6 +3,7 @@ import type { IModel, IPoint, IPathLine } from "makerjs";
 import type { measurementLike, IMeas, IMeasurements, IInstruction } from "src/types/data";
 
 // TO DO -> UPDATE P TO BE DEPENDENT ON BRA CUP
+// Fix Q -> needs to substract BtoF
 
 function pointFromPoint(a: IPoint, xDiff: number = 0, yDiff: number = 0) {
     return [a[0] + xDiff, a[1] + yDiff ];
