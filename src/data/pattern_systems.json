@@ -9,203 +9,278 @@
         "bodice": {
             "instructions": [
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "B",
-                    "parameters": ["A", 0, [ "full-length-front", 0.125, false ] ],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["A"],
+                    "measure": [
+                        [0], 
+                        ["full-length-front", 0.125]
+                    ] /* negative */
                 },
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "C",
-                    "parameters": [ "A", [ "across-shoulder-front", -0.125, false ], 0],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["A"],
+                    "measure": [
+                        ["across-shoulder-front", -0.125], 
+                        [0]
+                    ] /* negative */
                 },
-                {
-                    "action": "lineFromPoints",
-                    "name": "AtoC",
-                    "parameters": ["A", "C"],
-                    "isFinal": false
-                },
-                {
-                    "action": "squareLine",
+                { /* have to fix that this returns two points */
+                    "type": "point",
                     "name": "CLine",
-                    "parameters": ["C", "y-", 3],
-                    "isFinal": false
+                    "func": "squareLine",
+                    "lines": [["C", "A"]],
+                    "measure": [3]
                 },
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "D",
-                    "parameters": ["B", 0, [ "center-length-front", 0, true ]],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["B"],
+                    "measure": [
+                        [0],
+                        ["center-length-front"]
+                    ]
                 },
                 {
-                    "action": "lineFromPoints",
-                    "name": "BtoD",
-                    "parameters": ["B", "D"],
-                    "isFinal": true
-                },
-                {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "E",
-                    "parameters": ["B", ["bust-arc", 0.25, false] , 0],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["B"],
+                    "measure": [
+                        ["bust-arc", 0.25], /* negative */
+                        [0]
+                    ]
                 },
-                {
-                    "action": "squareLine",
+                { /* have to fix that this returns two points */
+                    "type": "point",
                     "name": "ELine",
-                    "parameters": ["E", "y+", 11],
-                    "isFinal": false
+                    "func": "squareLine",
+                    "lines": [["E", "B"]],
+                    "measure": [11]
                 },
                 {
-                    "action": "pointIntersecting",
+                    "type": "point",
                     "name": "G",
-                    "parameters": ["B", "CLine", ["shoulder-slope-front", 0.125, true]],
-                    "isFinal": false
+                    "func": "pointOnLine",
+                    "points": ["B"],
+                    "lines": [["CLine", "CLine_1"]], /* fix */
+                    "measure": [
+                        ["shoulder-slope-front", 0.125]
+                    ]
                 },
                 {
-                    "action": "pointOnLine",
+                    "type": "point",
                     "name": "H",
-                    "parameters": ["G", "B", ["bust-depth", 0, true]],
-                    "isFinal": false
+                    "func": "pointOnLine",
+                    "points": ["G"],
+                    "lines": [["G", "B"]] ,
+                    "measure": [
+                        ["bust-depth"]
+                    ]
                 },
                 {
-                    "action": "pointIntersecting",
+                    "type":"point",
                     "name": "I",
-                    "parameters": ["G", "AtoC", ["shoulder-length", 0, true]],
-                    "isFinal": false
+                    "func": "pointOnLine",
+                    "points": ["G"],
+                    "lines": [["A", "C"]],
+                    "measure": [
+                        ["shoulder-length"]
+                    ]
                 },
                 {
-                    "action": "lineFromPoints",
-                    "name": "GtoI",
-                    "parameters": ["G", "I"],
-                    "isFinal": true
-                }, 
-                {
-                    "action": "pointSquareOfTwoPoints",
+                    "type": "point",
                     "name": "J",
-                    "parameters": ["B", "H"],
-                    "isFinal": false
+                    "func": "pointSquareOfTwoPoints",
+                    "points": ["B", "H"]
                 },
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "K",
-                    "parameters": ["J", ["bust-span", 0.25, false], 0],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["J"],
+                    "measure": [
+                        ["bust-span", 0.25], /* negative */
+                        [0]
+                    ]
                 },
                 {
-                    "action": "midPoint",
+                    "type": "point",
                     "name": "L",
-                    "parameters": ["D", "J"],
-                    "isFinal": false
+                    "func": "midPoint",
+                    "points": ["D", "J"]
                 },
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "M",
-                    "parameters": ["L", ["across-chest", 0.25, false], 0],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["L"],
+                    "measure": [
+                        ["across-chest", 0.25], /* negative */
+                        [0]
+                    ]
                 },
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "F",
-                    "parameters": ["B", [ "dart-placement-front", 0, false ], 0],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["B"],
+                    "measure": [
+                        ["dart-placement-front"], /* negative */
+                        [0]
+                    ]
                 },
-                {
+                { /* */
                     "action": "squarePoint",
                     "name": "F1",
                     "parameters": [ "F", "y-", 0.1875 ],
                     "isFinal": false
                 },
                 {
-                    "action": "pointIntersecting",
+                    "type": "point",
                     "name": "N",
-                    "parameters": ["I", "ELine", [ "new-strap", 0.125, true ] ],
-                    "isFinal": false
+                    "func": "pointIntersecting",
+                    "points": ["I"],
+                    "lines": [["ELine", "ELine_1"]], /* fix */
+                    "measure": [
+                        ["new-strap", 0.125]
+                    ]
                 },
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "O",
-                    "parameters": ["N", 0, ["side-length", 0, true]],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["N"],
+                    "measure": [
+                        [0],
+                        ["side-length"]
+                    ]
                 },
                 {
-                    "action": "pointFromPoint",
+                    "type": "point",
                     "name": "P",
-                    "parameters": ["N", -1.25, 0],
-                    "isFinal": false
+                    "func": "pointFromPoint",
+                    "points": ["N"],
+                    "measure": [
+                        [-1.25],
+                        [0]
+                    ]
                 },
                 {
-                    "action": "pointOnLine",
+                    "type": "point",
                     "name": "P1",
-                    "parameters": ["O", "P", ["side-length", 0, true]],
-                    "isFinal": false
+                    "func": "pointOnLine",
+                    "points": ["O"],
+                    "lines": [["O", "P"]],
+                    "measure": [
+                        ["side-length"]
+                    ]
                 },
                 {
-                    "action": "lineFromPoints",
-                    "name": "OtoP",
-                    "parameters": ["O", "P1"],
-                    "isFinal": true
-                },
-                {
-                    "action": "pointOnLine",
+                    "type": "point",
                     "name": "Q",
-                    "parameters": ["P1", "F", ["waist-arc-front", 0.25, true]],
-                    "isFinal": false
+                    "func": "pointOnLine",
+                    "points": ["P1"],
+                    "lines": [["P1", "F"]],
+                    "measure": [
+                        ["wasit-arc-front", 0.25, ["B", "F1"]] /* BtoF1 is negative */
+                    ]
                 },
                 {
-                    "action": "makeDart",
+                    "type": "point",
                     "name": "R",
-                    "parameters": ["F1", "Q", "K", 0.625],
-                    "isFinal": true
-                }, 
-                {
-                    "action": "midPoint",
-                    "name": "PQ",
-                    "parameters": ["P", "Q"],
-                    "isFinal": false
+                    "func": "pointOnLine",
+                    "points": ["K"],
+                    "lines": [["K", "Q"]],
+                    "measure": [
+                        [["K", "F1"]]
+                    ]
                 },
                 {
-                    "action": "makeBezierCurve",
-                    "name": "PtoR",
-                    "parameters": ["P1", "PQ","R", "R"],
-                    "isFinal": true
+                    "type": "point",
+                    "name": "K1",
+                    "func": "pointOnBisector",
+                    "points": ["R", "K", "F1"],
+                    "measure": [[0.625]]
                 },
                 {
-                    "action": "midPoint",
-                    "name": "BF",
-                    "parameters": ["B", "F"],
-                    "isFinal": false
+                    "type": "line",
+                    "name": "BtoD",
+                    "points": ["B", "D"]
                 },
                 {
-                    "action": "makeBezierCurve",
-                    "name": "BtoF",
-                    "parameters": ["B", "BF", "F1", "F1"],
-                    "isFinal": true
+                    "type": "line",
+                    "name": "GtoI",
+                    "points": ["G", "I"]
                 },
                 {
-                    "action": "pointSquareOfTwoPoints",
-                    "name": "MO",
-                    "parameters": ["M", "O"],
-                    "isFinal": false
+                    "type": "line",
+                    "name": "OtoP",
+                    "points": ["O", "P1"]
                 },
                 {
-                    "action": "makeBezierCurve",
-                    "name": "GtoO",
-                    "parameters": ["G", "M", "MO", "O"],
-                    "isFinal": true
+                    "type": "line",
+                    "name": "KtoR",
+                    "points": ["K1", "R"]
                 },
                 {
-                    "action": "pointSquareOfTwoPoints",
-                    "name": "ID",
-                    "parameters": ["I", "D"],
-                    "isFinal": false
-                },
-                {
-                    "action": "makeBezierCurve",
-                    "name": "ItoD",
-                    "parameters": ["I", "ID", "D", "D"],
-                    "isFinal": true
+                    "type": "line",
+                    "name": "KtoF",
+                    "points": ["K1", "F1"]
                 }
+
+                // {
+                //     "action": "midPoint",
+                //     "name": "PQ",
+                //     "parameters": ["P", "Q"],
+                //     "isFinal": false
+                // },
+                // {
+                //     "action": "makeBezierCurve",
+                //     "name": "PtoR",
+                //     "parameters": ["P1", "PQ","R", "R"],
+                //     "isFinal": true
+                // },
+                // {
+                //     "action": "midPoint",
+                //     "name": "BF",
+                //     "parameters": ["B", "F"],
+                //     "isFinal": false
+                // },
+                // {
+                //     "action": "makeBezierCurve",
+                //     "name": "BtoF",
+                //     "parameters": ["B", "BF", "F1", "F1"],
+                //     "isFinal": true
+                // },
+                // {
+                //     "action": "pointSquareOfTwoPoints",
+                //     "name": "MO",
+                //     "parameters": ["M", "O"],
+                //     "isFinal": false
+                // },
+                // {
+                //     "action": "makeBezierCurve",
+                //     "name": "GtoO",
+                //     "parameters": ["G", "M", "MO", "O"],
+                //     "isFinal": true
+                // },
+                // {
+                //     "action": "pointSquareOfTwoPoints",
+                //     "name": "ID",
+                //     "parameters": ["I", "D"],
+                //     "isFinal": false
+                // },
+                // {
+                //     "action": "makeBezierCurve",
+                //     "name": "ItoD",
+                //     "parameters": ["I", "ID", "D", "D"],
+                //     "isFinal": true
+                // }
             ],
             "measurements_needed": [
                 "center-length-front",

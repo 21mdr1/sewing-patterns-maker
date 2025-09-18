@@ -1,0 +1,239 @@
+{
+    "supported_systems": [ 
+        { "id": "joseph-armstrong", "display-name": "Joseph-Armstrong" }
+    ],
+    "joseph-armstrong": {
+        "supported_patterns": [ 
+            { "id": "bodice", "display-name": "Bodice" }
+        ],
+        "bodice": {
+            "instructions": [
+                {
+                    "action": "pointFromPoint",
+                    "name": "B",
+                    "parameters": ["A", 0, [ "full-length-front", 0.125, false ] ],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "C",
+                    "parameters": [ "A", [ "across-shoulder-front", -0.125, false ], 0],
+                    "isFinal": false
+                },
+                {
+                    "action": "lineFromPoints",
+                    "name": "AtoC",
+                    "parameters": ["A", "C"],
+                    "isFinal": false
+                },
+                {
+                    "action": "squareLine",
+                    "name": "CLine",
+                    "parameters": ["C", "y-", 3],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "D",
+                    "parameters": ["B", 0, [ "center-length-front", 0, true ]],
+                    "isFinal": false
+                },
+                {
+                    "action": "lineFromPoints",
+                    "name": "BtoD",
+                    "parameters": ["B", "D"],
+                    "isFinal": true
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "E",
+                    "parameters": ["B", ["bust-arc", 0.25, false] , 0],
+                    "isFinal": false
+                },
+                {
+                    "action": "squareLine",
+                    "name": "ELine",
+                    "parameters": ["E", "y+", 11],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointIntersecting",
+                    "name": "G",
+                    "parameters": ["B", "CLine", ["shoulder-slope-front", 0.125, true]],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointOnLine",
+                    "name": "H",
+                    "parameters": ["G", "B", ["bust-depth", 0, true]],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointIntersecting",
+                    "name": "I",
+                    "parameters": ["G", "AtoC", ["shoulder-length", 0, true]],
+                    "isFinal": false
+                },
+                {
+                    "action": "lineFromPoints",
+                    "name": "GtoI",
+                    "parameters": ["G", "I"],
+                    "isFinal": true
+                }, 
+                {
+                    "action": "pointSquareOfTwoPoints",
+                    "name": "J",
+                    "parameters": ["B", "H"],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "K",
+                    "parameters": ["J", ["bust-span", 0.25, false], 0],
+                    "isFinal": false
+                },
+                {
+                    "action": "midPoint",
+                    "name": "L",
+                    "parameters": ["D", "J"],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "M",
+                    "parameters": ["L", ["across-chest", 0.25, false], 0],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "F",
+                    "parameters": ["B", [ "dart-placement-front", 0, false ], 0],
+                    "isFinal": false
+                },
+                {
+                    "action": "squarePoint",
+                    "name": "F1",
+                    "parameters": [ "F", "y-", 0.1875 ],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointIntersecting",
+                    "name": "N",
+                    "parameters": ["I", "ELine", [ "new-strap", 0.125, true ] ],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "O",
+                    "parameters": ["N", 0, ["side-length", 0, true]],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointFromPoint",
+                    "name": "P",
+                    "parameters": ["N", -1.25, 0],
+                    "isFinal": false
+                },
+                {
+                    "action": "pointOnLine",
+                    "name": "P1",
+                    "parameters": ["O", "P", ["side-length", 0, true]],
+                    "isFinal": false
+                },
+                {
+                    "action": "lineFromPoints",
+                    "name": "OtoP",
+                    "parameters": ["O", "P1"],
+                    "isFinal": true
+                },
+                {
+                    "action": "pointOnLine",
+                    "name": "Q",
+                    "parameters": ["P1", "F", ["waist-arc-front", 0.25, true]],
+                    "isFinal": false
+                },
+                {
+                    "action": "makeDart",
+                    "name": "R",
+                    "parameters": ["F1", "Q", "K", 0.625],
+                    "isFinal": true
+                }, 
+                {
+                    "action": "midPoint",
+                    "name": "PQ",
+                    "parameters": ["P", "Q"],
+                    "isFinal": false
+                },
+                {
+                    "action": "makeBezierCurve",
+                    "name": "PtoR",
+                    "parameters": ["P1", "PQ","R", "R"],
+                    "isFinal": true
+                },
+                {
+                    "action": "midPoint",
+                    "name": "BF",
+                    "parameters": ["B", "F"],
+                    "isFinal": false
+                },
+                {
+                    "action": "makeBezierCurve",
+                    "name": "BtoF",
+                    "parameters": ["B", "BF", "F1", "F1"],
+                    "isFinal": true
+                },
+                {
+                    "action": "pointSquareOfTwoPoints",
+                    "name": "MO",
+                    "parameters": ["M", "O"],
+                    "isFinal": false
+                },
+                {
+                    "action": "makeBezierCurve",
+                    "name": "GtoO",
+                    "parameters": ["G", "M", "MO", "O"],
+                    "isFinal": true
+                },
+                {
+                    "action": "pointSquareOfTwoPoints",
+                    "name": "ID",
+                    "parameters": ["I", "D"],
+                    "isFinal": false
+                },
+                {
+                    "action": "makeBezierCurve",
+                    "name": "ItoD",
+                    "parameters": ["I", "ID", "D", "D"],
+                    "isFinal": true
+                }
+            ],
+            "measurements_needed": [
+                "center-length-front",
+                "center-length-back",
+                "full-length-front",
+                "full-length-back",
+                "shoulder-slope-front",
+                "shoulder-slope-back",
+
+                "new-strap",
+                "bust-depth",
+                "bust-span",
+                "side-length",
+                "back-neck",
+                "shoulder-length",
+                "across-shoulder-front",
+                "across-shoulder-back",
+
+                "across-chest",
+                "across-back",
+                "bust-arc",
+                "back-arc",
+                "waist-arc-front",
+                "waist-arc-back",
+
+                "dart-placement-front",
+                "dart-placement-back"
+            ]
+        }
+    }
+}
